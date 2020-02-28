@@ -8,10 +8,12 @@
     width:650px;
     float:left;
 }
-.aside{
-    width:300px;
-    float:left;
-    background-color:red;
+.aside > ul {
+    list-style:none;
+}
+
+.aside > ul > a > li{
+    margin-top:8px;
 }
 
 .movie_container{

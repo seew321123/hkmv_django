@@ -31,17 +31,12 @@
         </div>
         </div>
         </div>
-        <div class="aside">
+                <div class="aside">
             <ul>
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
+                <h3>本周热门电影评论区</h3>
+                {% for item in top10_movies %}
+                <a href="{% url 'movies:comment' item.id %}"><li>{{ forloop.counter }}.{{ item.name }}</li></a>
+                {% endfor %}
             </ul>
         </div>
 
