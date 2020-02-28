@@ -31,7 +31,6 @@ class Comment_in_comment(models.Model):
     comment = models.ForeignKey(Comment,on_delete=models.CASCADE)
     content = models.TextField()
     owner = models.CharField(max_length=50)
-    like_num = models.IntegerField()
 
 class Like_status(models.Model):
     comment = models.ForeignKey(Comment,on_delete=models.CASCADE)
