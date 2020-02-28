@@ -64,6 +64,7 @@ def comment(request,movie_id):
 @login_required
 def add_comment(request,movie_id):
     movie = Movie.objects.get(id=movie_id)
+    top10_movies = Movie.objects.order_by('-date_added')[:10]
     if request.method != 'POST':
         form = CommentForm()
     else:
@@ -74,7 +75,7 @@ def add_comment(request,movie_id):
             new_comment.movie = movie
             new_comment.save()
             return HttpResponseRedirect(reverse('movies:comment',args=[movie_id]))
-    context = {'movie':movie,'form':form}
+    context = {'movie':movie,'form':form,'top10_movies':top10_movies}
     return render(request,'movies/add_comment.html',context)
 
 @login_required
@@ -108,6 +109,7 @@ def user_center(request):
 
 @login_required
 def edit_comment(request,comment_id):
+    top10_movies = Movie.objects.order_by('-date_added')[:10]
     comment = Comment.objects.get(id=comment_id)
     movie = comment.movie
     if request.method != 'POST':
@@ -120,7 +122,7 @@ def edit_comment(request,comment_id):
             new_comment.movie = movie
             new_comment.save()
             return HttpResponseRedirect(reverse('movies:user_center'))
-    context = {'comment':comment,'movie':movie,'form':form}
+    context = {'comment':comment,'movie':movie,'form':form,'top10_movies':top10_movies}
     return render(request,'movies/edit_comment.html',context)
 
 @login_required
