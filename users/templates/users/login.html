@@ -1,0 +1,16 @@
+{% extends 'movies/base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/css/register.css">
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+<p>用户名或密码不正确，请重试！</p>
+{% endif %}
+<form class="register" method="post" action="{% url 'users:login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">登录</button>
+    <input type="hidden" name="next" value="{% url 'movies:movies' %}" />
+</form>
+{% endblock %}

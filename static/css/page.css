@@ -1,0 +1,20 @@
+.kkk{
+    clear:both;
+    height:100px;
+}
+.kkk > ul{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+}
+
+.kkk > ul > li{
+    list-style: none;
+    float:left;
+    margin:0 10px;
+}
+
+.disabled > a{
+    cursor:default;
+}

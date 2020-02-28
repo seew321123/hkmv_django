@@ -1,0 +1,47 @@
+{% extends 'movies/base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/user_center.css">
+{% endblock %}
+
+{% block content %}
+<div class="my_comment">
+    <h3>我的影评：</h3>
+    {% for item in comment %}
+    <div class="comment_item">
+        <div class="row_1">
+            <h4>评价电影：{{ item.movie }}</h4>
+        </div>
+        <div class="row_2">
+            <div class="col_1">
+                <img src="{{ item.movie.img_url }}">
+            </div>
+            <div class="col_2">
+                <p>我的评分：{{ item.score }}分</p>
+                <p>评价时间：{{ item.date_added|date:'Y年m月d日,G:i' }}</p>
+                <p>{{ item.content }}</p>
+            </div>
+        </div>
+        <div class="row_3">
+            <p><a href="{% url 'movies:edit_comment' item.id %}">编辑</a>&nbsp&nbsp|&nbsp&nbsp<a onclick="return window.confirm('确定真的要删除这条影评吗？')" href="{% url 'movies:delete_comment' item.id %}">删除</a></p>
+        </div>
+    </div>
+        {% empty %}
+    <div class="comment_item">
+        <p>您当前并没有任何影评</p>
+    </div>
+    {% endfor %}
+</div>
+<div class="my_comment_in_comment">
+    <h3>我对其他用户影评的评论：</h3>
+    {% for item in comment_in_comment %}
+    <div class="comment_in_comment_item">
+        <p>评价时间：{{ item.date_added|date:'Y年m月d日,G:i' }}</p>
+        <p>{{ item.content }}</p>
+    </div>
+        {% empty %}
+    <div class="comment_in_comment_item">
+        <p>您当前并没有任何对其他影评的评论</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

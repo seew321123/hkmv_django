@@ -1,0 +1,81 @@
+{% extends 'movies/base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/css/movies.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="movies">
+    <div class="items">
+    {% for movie in movie_list %}
+    <div class="movie_container">
+        <div class="movie_inf_nav">
+            <a href="{% url 'movies:comment' movie.id %}">{{ movie.name }}</a>
+        </div>
+        <div class="movie_inf_col1">
+            <img width="120px" src="{{ movie.img_url }}">
+        </div>
+        <div class="movie_inf_col2">
+            <p>导演：{{ movie.director }}</p>
+            <p>主演：{{ movie.star }}</p>
+            <p>类型：{{ movie.type }}</p>
+            <p>国家：{{ movie.country }}</p>
+            <p>语言：{{ movie.language }}</p>
+            <p>上映时间：{{ movie.year }}</p>
+            <p>片长：{{ movie.duration }}</p>
+        </div>
+        <div class="movie_inf_col3">
+            <p>IMDB评分:</p>
+            <p class="score">{{ movie.imdb_score }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    <div class="aside">
+        <ul>
+            <h3>本周热门电影评论区</h3>
+            {% for item in top10_movies %}
+            <a href="{% url 'movies:comment' item.id %}"><li>{{ forloop.counter }}.{{ item.name }}</li></a>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+</div>
+    {#显示分页导航栏--start#}
+<div class="kkk">
+                <ul  class="pagination" id="pager" >
+                    {#上一页按钮开始#}
+                    {# 如果当前页有上一页#}
+                    {% if movie_list.has_previous %}
+                        {#  当前页的上一页按钮正常使用#}
+                        <li class="previous"><a href="?page={{ movie_list.previous_page_number }}">上一页</a></li>
+                    {% else %}
+                        {# 当前页的不存在上一页时,上一页的按钮不可用#}
+                        <li class="previous disabled"><a>上一页</a></li>
+                    {% endif %}
+                    {#上一页按钮结束#}
+
+                    {# 页码开始#}
+                    {% for num in paginator.page_range %}
+                        {% if num == currentPage %}
+                            <li class="liactive"><a class="selected" href="?page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                            <li class="itemli"><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {#页码结束#}
+
+                    {# 下一页按钮开始#}
+                    {% if movie_list.has_next %}
+                        <li class="next"><a href="?page={{ movie_list.next_page_number }}">下一页</a></li>
+                    {% else %}
+                        <li class="next disabled"><a>下一页</a></li>
+                    {% endif %}
+                    {# 下一页按钮结束#}
+                </ul>
+                </div>
+
+
+{% endblock %}

@@ -1,0 +1,9 @@
+.register{
+    width:330px;
+    padding:60px;
+    margin:10px auto;
+    background-color:#EAF0FC;
+    border-radius:15px;
+    box-shadow: 10px 10px 5px #D4D4D4;
+    text-align:right;
+}

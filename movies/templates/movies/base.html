@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HKMV_STATION</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <div class="nav">
+        <div class="nav_col1">
+            <img class="logo" src="/static/images/LOGO.png">
+            <form method="post" action="{% url 'movies:search_movie' %}">
+                {% csrf_token %}
+                <input type="text" name="movie_search">
+                <button name="submit">搜索</button>
+            </form>
+
+        </div>
+        <div class="nav_col2">
+            <ul>
+                <li><a href="{% url 'movies:movies' %}">电影</a></li>
+                <li>音乐</li>
+                <li>明星</li>
+                <li>新鲜事</li>
+            </ul>
+        </div>
+        <div class="nav_col3">
+            {% if user.is_authenticated %}
+            <span>你好，{{ user.username }}</span>
+            <a href="{% url 'users:logout_view' %}">注销</a>&nbsp&nbsp<a href="{% url 'movies:user_center' %}">个人中心</a>
+            {% else %}
+            <a href="{% url 'users:login' %}">登录</a> &nbsp&nbsp<a href="{% url 'users:register' %}">注册</a>
+            {% endif %}
+        </div>
+    </div>
+{% block content %}
+{% endblock %}
+</body>
+</html>
