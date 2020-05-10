@@ -8,9 +8,13 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 """
 
 import os
+os.environ["DJANGO_SETTINGS_MODULE"] = "hkmv.settings"
+
+from os.path import join,dirname,abspath
+PROJECT_DIR = dirname(dirname(abspath(__file__)))
+
+import sys 
+sys.path.insert(0,PROJECT_DIR)
 
 from django.core.wsgi import get_wsgi_application
-from dj_static import Cling
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hkmv.settings')
-
-application = Cling(get_wsgi_application())
+application = get_wsgi_application()

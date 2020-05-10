@@ -25,7 +25,7 @@ SECRET_KEY = '0webk=&+eh_8^@4_dl^=e@m-w4i^$)k3fqvb=n*y8w9&$*9rv%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -123,21 +123,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
-
 ]
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 LOGIN_URL = '/users/login/'
-
-#heroku配置
-cwd = os.getcwd()
-if cwd == '/app' or cwd[:4] == '/tmp':
-    import dj_database_url
-    DATABASES = {
-        'default':dj_database_url.config(default='prstagres://localhost')
-    }
-
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
-    ALLOWED_HOSTS = ['*']
 
